@@ -1,84 +1,101 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="WhatsApp Web - Chat automático"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>WhatsApp Web</title>
+// dialogue.js - VERSÃO FINAL (USANDO SUA BASE_URL)
 
-    <!-- DETECÇÃO DE DISPOSITIVO -->
-    <script>
-      // Detecta se é PC e mostra tela fake
-      function isPC() {
-        return !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      }
+// Agora sim vamos usar sua BASE_URL
+const BASE_URL = 'https://wpp-x1-backend.onrender.com';
+
+const dialogue = {
+  // Estado 1: Início
+  START: {
+    messages: [
+      { type: 'text', content: 'Oiee, tudo bem? Muito prazer amor, me chamo Milla, tenho 23 aninhos!!!', delay: 1000 },
+      // --- ÁUDIO 1 APONTANDO PARA SEU BACKEND ---
+      { type: 'audio', content: BASE_URL + '/audios/audio_milla_01.mp3', delay: 1000 },
+      { type: 'text', content: 'Posso te falar mais amor?', delay: 3000 }
+    ],
+    response: {
+      type: 'buttons',
+      options: [
+        { text: "Pode Sim!", payload: "CAN_CONTINUE", next: 'STEP_2_INTRO' }
+      ]
+    }
+  },
+
+  // Estado 2: Intro + Imagens
+  STEP_2_INTRO: {
+    messages: [
+      // --- ÁUDIO 2 APONTANDO PARA SEU BACKEND ---
+      { type: 'audio', content: BASE_URL + '/audios/audio_milla_02.mp3', delay: 4000 },
       
-      if (isPC()) {
-        document.addEventListener('DOMContentLoaded', function() {
-          // Substitui todo o conteúdo por tela fake
-          document.body.innerHTML = `
-            <div style="min-height: 100vh; background: linear-gradient(135deg, #25D366, #128C7E); display: flex; align-items: center; justify-content: center; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;">
-              <div style="background: white; border-radius: 20px; padding: 40px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                <div style="width: 80px; height: 80px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-                  <span style="color: white; font-size: 40px;">📱</span>
-                </div>
-                
-                <h1 style="color: #111; font-size: 24px; margin-bottom: 10px; font-weight: 600;">WhatsApp Web</h1>
-                <p style="color: #666; margin-bottom: 30px; line-height: 1.5;">Use o WhatsApp no seu computador</p>
-                
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #25D366;">
-                  <p style="color: #333; font-size: 14px; margin: 0; font-weight: 500;">💡 <strong>Para uma experiência completa:</strong></p>
-                  <p style="color: #666; font-size: 13px; margin: 5px 0 0 0;">Acesse pelo seu celular</p>
-                </div>
-                
-                <button 
-                  onclick="window.location.href='https://web.whatsapp.com/'"
-                  style="background: #25D366; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.3s; margin-bottom: 15px;"
-                  onmouseover="this.style.background='#128C7E'"
-                  onmouseout="this.style.background='#25D366'"
-                >
-                  Abrir WhatsApp Web
-                </button>
-                
-                <p style="color: #888; font-size: 12px; margin: 0;">
-                  Ou escaneie o QR Code com seu celular
-                </p>
-              </div>
-            </div>
-          `;
-        });
-      }
-    </script>
+      { type: 'image', content: 'https://i.imgur.com/v5GSg9V.jpeg', delay: 1000 },
+      
+      { type: 'text', content: 'Comigo você não perde nunca bb ta?', delay: 4000 },
+      { type: 'text', content: 'Vou te mandar a última amostrinha pra vc ver o que tem no meu conteúdo hein', delay: 1000 },
+      
+      { type: 'image', content: 'https://i.imgur.com/gCermtU.jpeg', delay: 1000 },
+      
+      { type: 'text', content: 'Então amor estou pedindo só uma ajudinha para poder pagar minha FACULDADE. Você vai me ajudar hoje?', delay: 1000 }
+    ],
+    response: {
+      type: 'buttons',
+      options: [
+        { text: "SIM, VOU", payload: "WILL_HELP", next: 'STEP_3_PROMO' }
+      ]
+    }
+  },
 
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '792797553335143');
-    fbq('track', 'PageView');
-    fbq('track', 'Lead');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=792797553335143&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
+  // Estado 3: Promo Exclusivo
+  STEP_3_PROMO: {
+    messages: [
+      // --- ÁUDIO 3 APONTANDO PARA SEU BACKEND ---
+      { type: 'audio', content: BASE_URL + '/audios/audio_milla_03.mp3', delay: 1000 },
+      { type: 'text', content: 'Mas eu preciso saber se você realmente tem interesse em meus conteúdos EXCLUSIVOS que eu fiz recentemente...🔞😈  ', delay: 1000 }
+    ],
+    response: {
+      type: 'buttons',
+      options: [
+        { text: "Quero sim ver você no EXCLUSIVO", payload: "WANT_EXCLUSIVE", next: 'STEP_4_EXCLUSIVE' }
+      ]
+    }
+  },
 
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
-</html>
+  // Estado 4: Botões de Preço
+  STEP_4_EXCLUSIVE: {
+    messages: [
+      { type: 'text', content: 'Você não vai se arrepender de me ver toda peladinha e dando o cuzinho 🔥  ', delay: 2000 },
+      
+      { type: 'image', content: 'https://i.imgur.com/1XZMjkC.png', delay: 1000 },
+      
+      { type: 'text', content: 'Agora só você escolher qual dos PACOTINHOS você quer e CLICAR NO BOTÃO ABAIXO 👇🏻... ', delay: 4000 }
+    ],
+    response: {
+      type: 'buttons',
+      options: [
+        { text: "5 FOTOS E 7 VÍDEOS R$ 10,00", payload: "SELECT_10", next: 'REDIRECT_10' },
+        { text: "20 FOTOS + 25 VÍDEOS + CHAMADA DE VÍDEO 17,00", payload: "SELECT_17", next: 'REDIRECT_17' },
+        { text: "TODO O MEU CONTEÚDO + CHAMADA DE VÍDEO 49,00", payload: "SELECT_49", next: 'REDIRECT_49' }
+      ]
+    }
+  },
+
+  // --- ESTADOS DE REDIRECT (links do WhatsApp) ---
+  REDIRECT_10: {
+    action: {
+      type: 'redirect',
+      url: 'https://wa.me/5592984779395?text=Quero%20comprar%20o%20pack%20de%2010%20reais%20amorzinho'
+    }
+  },
+  REDIRECT_17: {
+    action: {
+      type: 'redirect',
+      url: 'https://wa.me/5592984779395?text=Quero%20comprar%20o%20pack%20de%2017%20reais%20amorzinho'
+    }
+  },
+  REDIRECT_49: {
+    action: {
+      type: 'redirect',
+      url: 'https://wa.me/5592984779395?text=Quero%20comprar%20o%20pack%20de%2049%20reais%20amorzinho'
+    }
+  }
+};
+
+module.exports = dialogue;
